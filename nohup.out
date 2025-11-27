@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/dyyu/mmyolo/tools/train.py", line 12, in <module>
+    from mmyolo.registry import RUNNERS
+  File "/home/dyyu/mmyolo/mmyolo/registry.py", line 33, in <module>
+    RUNNERS = Registry(
+  File "/home/dyyu/anaconda3/envs/mmyolo/lib/python3.10/site-packages/mmengine/registry/registry.py", line 94, in __init__
+    self._scope = self.infer_scope()
+  File "/home/dyyu/anaconda3/envs/mmyolo/lib/python3.10/site-packages/mmengine/registry/registry.py", line 164, in infer_scope
+    module = inspect.getmodule(sys._getframe(2))
+  File "/home/dyyu/anaconda3/envs/mmyolo/lib/python3.10/inspect.py", line 871, in getmodule
+    if f == _filesbymodname.get(modname, None):
+KeyboardInterrupt

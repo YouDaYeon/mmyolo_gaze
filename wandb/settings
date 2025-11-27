@@ -1,0 +1,5 @@
+[default]
+entity = dy2yoo-infiniq
+project = mmyolo-tools
+base_url = https://api.wandb.ai
+

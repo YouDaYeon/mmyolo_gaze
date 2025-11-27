@@ -1,0 +1,1018 @@
+_backend_args:
+    value: null
+_multiscale_resize_transforms:
+    value:
+        - transforms:
+            - scale:
+                - 640
+                - 640
+              type: YOLOv5KeepRatioResize
+            - allow_scale_up: false
+              pad_val:
+                img: 114
+              scale:
+                - 640
+                - 640
+              type: LetterResize
+          type: Compose
+        - transforms:
+            - scale:
+                - 320
+                - 320
+              type: YOLOv5KeepRatioResize
+            - allow_scale_up: false
+              pad_val:
+                img: 114
+              scale:
+                - 320
+                - 320
+              type: LetterResize
+          type: Compose
+        - transforms:
+            - scale:
+                - 960
+                - 960
+              type: YOLOv5KeepRatioResize
+            - allow_scale_up: false
+              pad_val:
+                img: 114
+              scale:
+                - 960
+                - 960
+              type: LetterResize
+          type: Compose
+_wandb:
+    value:
+        cli_version: 0.21.0
+        code_path: source-mmyolo-tools-tools_train.py
+        e:
+            jd9n7ccaq8lu0oknpjqi1w324l4j9l95:
+                args:
+                    - configs/yolov8/yolov8_s_fast_1xb12-40e_gaze_v0.py
+                codePath: tools/train.py
+                codePathLocal: tools/train.py
+                cpu_count: 112
+                cpu_count_logical: 224
+                cudaVersion: "12.8"
+                disk:
+                    /:
+                        total: "1888425144320"
+                        used: "671145988096"
+                email: dy2yoo@infiniq.co.kr
+                executable: /home/dyyu/anaconda3/envs/mmyolo/bin/python
+                git:
+                    commit: 8c4d9dc503dc8e327bec8147e8dc97124052f693
+                    remote: https://github.com/open-mmlab/mmyolo.git
+                gpu: NVIDIA H100 80GB HBM3
+                gpu_count: 8
+                gpu_nvidia:
+                    - architecture: Hopper
+                      cudaCores: 16896
+                      memoryTotal: "85520809984"
+                      name: NVIDIA H100 80GB HBM3
+                      uuid: GPU-568febb0-e0fe-cc5b-365a-7a8668c5f0f1
+                    - architecture: Hopper
+                      cudaCores: 16896
+                      memoryTotal: "85520809984"
+                      name: NVIDIA H100 80GB HBM3
+                      uuid: GPU-f1387760-7034-d07f-71cf-6b2de6e819e2
+                    - architecture: Hopper
+                      cudaCores: 16896
+                      memoryTotal: "85520809984"
+                      name: NVIDIA H100 80GB HBM3
+                      uuid: GPU-6cd36356-bda4-0a9c-be37-23e5c761e46f
+                    - architecture: Hopper
+                      cudaCores: 16896
+                      memoryTotal: "85520809984"
+                      name: NVIDIA H100 80GB HBM3
+                      uuid: GPU-1b8e96e5-4ae9-e988-a7a8-2584665a1f73
+                    - architecture: Hopper
+                      cudaCores: 16896
+                      memoryTotal: "85520809984"
+                      name: NVIDIA H100 80GB HBM3
+                      uuid: GPU-8d44e75d-94d1-009d-252f-210ad23a7e43
+                    - architecture: Hopper
+                      cudaCores: 16896
+                      memoryTotal: "85520809984"
+                      name: NVIDIA H100 80GB HBM3
+                      uuid: GPU-5ebc5800-b7b5-ca19-527d-3d6552e4118b
+                    - architecture: Hopper
+                      cudaCores: 16896
+                      memoryTotal: "85520809984"
+                      name: NVIDIA H100 80GB HBM3
+                      uuid: GPU-1871a978-9b75-b62c-b45e-668373267111
+                    - architecture: Hopper
+                      cudaCores: 16896
+                      memoryTotal: "85520809984"
+                      name: NVIDIA H100 80GB HBM3
+                      uuid: GPU-b8951494-a451-4750-96ca-bd40a744694e
+                host: gpu-h100-08-003
+                memory:
+                    total: "2164176465920"
+                os: Linux-6.8.0-60-generic-x86_64-with-glibc2.39
+                program: /home/dyyu/mmyolo/tools/train.py
+                python: CPython 3.10.0
+                root: /home/dyyu/mmyolo/work_dirs/yolov8_s_fast_1xb12-40e_gaze_v0/20250902_144855/vis_data
+                startedAt: "2025-09-02T05:48:58.117755Z"
+                writerId: jd9n7ccaq8lu0oknpjqi1w324l4j9l95
+        m: []
+        python_version: 3.10.0
+        t:
+            "1":
+                - 1
+                - 5
+                - 37
+                - 38
+                - 41
+                - 53
+                - 80
+                - 82
+            "2":
+                - 1
+                - 5
+                - 37
+                - 38
+                - 41
+                - 53
+                - 80
+                - 82
+            "3":
+                - 2
+            "4": 3.10.0
+            "5": 0.21.0
+            "12": 0.21.0
+            "13": linux-x86_64
+affine_scale:
+    value: 0.5
+albu_train_transforms:
+    value:
+        - p: 0.01
+          type: Blur
+        - p: 0.01
+          type: MedianBlur
+        - p: 0.01
+          type: ToGray
+        - p: 0.01
+          type: CLAHE
+backend_args:
+    value: null
+base_lr:
+    value: 0.01
+batch_shapes_cfg:
+    value: null
+class_name:
+    value:
+        - face
+        - eye
+close_mosaic_epochs:
+    value: 10
+custom_hooks:
+    value:
+        - ema_type: ExpMomentumEMA
+          momentum: 0.0001
+          priority: 49
+          strict_load: false
+          type: EMAHook
+          update_buffers: true
+        - switch_epoch: 490
+          switch_pipeline:
+            - backend_args: null
+              type: LoadImageFromFile
+            - type: LoadAnnotations
+              with_bbox: true
+            - scale:
+                - 640
+                - 640
+              type: YOLOv5KeepRatioResize
+            - allow_scale_up: true
+              pad_val:
+                img: 114
+              scale:
+                - 640
+                - 640
+              type: LetterResize
+            - border_val:
+                - 114
+                - 114
+                - 114
+              max_aspect_ratio: 100
+              max_rotate_degree: 0
+              max_shear_degree: 0
+              scaling_ratio_range:
+                - 0.09999999999999998
+                - 1.9
+              type: YOLOv5RandomAffine
+            - bbox_params:
+                format: pascal_voc
+                label_fields:
+                    - gt_bboxes_labels
+                    - gt_ignore_flags
+                type: BboxParams
+              keymap:
+                gt_bboxes: bboxes
+                img: image
+              transforms:
+                - p: 0.01
+                  type: Blur
+                - p: 0.01
+                  type: MedianBlur
+                - p: 0.01
+                  type: ToGray
+                - p: 0.01
+                  type: CLAHE
+              type: mmdet.Albu
+            - type: YOLOv5HSVRandomAug
+            - prob: 0.5
+              type: mmdet.RandomFlip
+            - meta_keys:
+                - img_id
+                - img_path
+                - ori_shape
+                - img_shape
+                - flip
+                - flip_direction
+              type: mmdet.PackDetInputs
+          type: mmdet.PipelineSwitchHook
+data_root:
+    value: /mnt/terror/gaze360_dataset/gaze_annotations/
+dataset_type:
+    value: YOLOv5CocoDataset
+deepen_factor:
+    value: 0.33
+default_hooks:
+    value:
+        checkpoint:
+            interval: 10
+            max_keep_ckpts: 2
+            save_best: auto
+            type: CheckpointHook
+        early_stopping:
+            min_delta: 0.05
+            monitor: MAE_360
+            patience: 5
+            rule: less
+            type: EarlyStoppingHook
+        logger:
+            interval: 5
+            type: LoggerHook
+        param_scheduler:
+            lr_factor: 0.01
+            max_epochs: 100
+            scheduler_type: linear
+            type: YOLOv5ParamSchedulerHook
+            warmup_mim_iter: 10
+        sampler_seed:
+            type: DistSamplerSeedHook
+        timer:
+            type: IterTimerHook
+        visualization:
+            type: mmdet.DetVisualizationHook
+default_scope:
+    value: mmyolo
+env_cfg:
+    value:
+        cudnn_benchmark: true
+        dist_cfg:
+            backend: nccl
+        mp_cfg:
+            mp_start_method: fork
+            opencv_num_threads: 0
+image_path:
+    value: /mnt/terror/gaze360_dataset/original/imgs/
+img_scale:
+    value:
+        - 320
+        - 320
+img_scales:
+    value:
+        - - 640
+          - 640
+        - - 320
+          - 320
+        - - 960
+          - 960
+last_stage_out_channels:
+    value: 1024
+last_transform:
+    value:
+        - bbox_params:
+            format: pascal_voc
+            label_fields:
+                - gt_bboxes_labels
+                - gt_ignore_flags
+            type: BboxParams
+          keymap:
+            gt_bboxes: bboxes
+            gt_gazes: gazes
+            img: image
+          transforms:
+            - p: 0.01
+              type: Blur
+            - p: 0.01
+              type: MedianBlur
+            - p: 0.01
+              type: ToGray
+            - p: 0.01
+              type: CLAHE
+          type: mmdet.Albu
+        - type: YOLOv5HSVRandomAug
+        - prob: 0.5
+          type: mmdet.RandomFlip
+        - meta_keys:
+            - img_id
+            - img_path
+            - ori_shape
+            - img_shape
+            - flip
+            - seg_map_path
+            - flip_direction
+          type: mmdet.PackDetInputs
+launcher:
+    value: none
+load_from:
+    value: configs/yolov8/mm_yolov8m_coco_state_dict.pth
+log_level:
+    value: INFO
+log_processor:
+    value:
+        by_epoch: true
+        type: LogProcessor
+        window_size: 50
+loss_bbox_weight:
+    value: 7.5
+loss_cls_weight:
+    value: 0.5
+loss_dfl_weight:
+    value: 0.375
+lr_factor:
+    value: 0.01
+max_aspect_ratio:
+    value: 100
+max_epochs:
+    value: 100
+max_keep_ckpts:
+    value: 2
+metainfo:
+    value:
+        classes:
+            - face
+            - eye
+        palette:
+            - - 20
+              - 220
+              - 60
+            - - 220
+              - 20
+              - 60
+mixup_prob:
+    value: 0.1
+model:
+    value:
+        backbone:
+            act_cfg:
+                inplace: true
+                type: SiLU
+            arch: P5
+            deepen_factor: 0.67
+            last_stage_out_channels: 768
+            norm_cfg:
+                eps: 0.001
+                momentum: 0.03
+                type: BN
+            type: YOLOv8CSPDarknet
+            widen_factor: 0.75
+        bbox_head:
+            bbox_coder:
+                type: DistancePointBBoxCoder
+            head_module:
+                act_cfg:
+                    inplace: true
+                    type: SiLU
+                featmap_strides:
+                    - 8
+                    - 16
+                    - 32
+                in_channels:
+                    - 256
+                    - 512
+                    - 768
+                norm_cfg:
+                    eps: 0.001
+                    momentum: 0.03
+                    type: BN
+                num_classes: 2
+                reg_max: 16
+                type: YOLOv8HeadModule
+                widen_factor: 0.75
+            loss_bbox:
+                bbox_format: xyxy
+                iou_mode: ciou
+                loss_weight: 7.5
+                reduction: sum
+                return_iou: false
+                type: IoULoss
+            loss_cls:
+                loss_weight: 0.5
+                reduction: none
+                type: mmdet.CrossEntropyLoss
+                use_sigmoid: true
+            loss_dfl:
+                loss_weight: 0.375
+                reduction: mean
+                type: mmdet.DistributionFocalLoss
+            prior_generator:
+                offset: 0.5
+                strides:
+                    - 8
+                    - 16
+                    - 32
+                type: mmdet.MlvlPointGenerator
+            type: YOLOv8Head
+        data_preprocessor:
+            bgr_to_rgb: true
+            mean:
+                - 0
+                - 0
+                - 0
+            std:
+                - 255
+                - 255
+                - 255
+            type: YOLOv5DetDataPreprocessor
+        gaze_head:
+            gaze_head_module:
+                act_cfg:
+                    inplace: true
+                    type: SiLU
+                norm_cfg:
+                    eps: 0.001
+                    momentum: 0.03
+                    type: BN
+                type: GazeHeadModule_v0
+            loss_gaze:
+                batch_size: 32
+                loss_weight: 6
+                type: GazeLoss_v0
+            type: GazeHead_v0
+        neck:
+            act_cfg:
+                inplace: true
+                type: SiLU
+            deepen_factor: 0.67
+            in_channels:
+                - 256
+                - 512
+                - 768
+            norm_cfg:
+                eps: 0.001
+                momentum: 0.03
+                type: BN
+            num_csp_blocks: 3
+            out_channels:
+                - 256
+                - 512
+                - 768
+            type: YOLOv8PAFPN
+            widen_factor: 0.75
+        test_cfg:
+            img_scale:
+                - 320
+                - 320
+            max_per_img: 300
+            multi_label: true
+            nms:
+                iou_threshold: 0.7
+                type: nms
+            nms_pre: 30000
+            score_thr: 0.001
+        train_cfg:
+            assigner:
+                alpha: 0.5
+                beta: 6
+                eps: 1e-09
+                num_classes: 2
+                topk: 10
+                type: BatchTaskAlignedAssigner
+                use_ciou: true
+            img_scale:
+                - 320
+                - 320
+            train_batch: 32
+        type: GazeDetector_v0
+model_test_cfg:
+    value:
+        img_scale:
+            - 320
+            - 320
+        max_per_img: 300
+        multi_label: true
+        nms:
+            iou_threshold: 0.7
+            type: nms
+        nms_pre: 30000
+        score_thr: 0.001
+mosaic_affine_transform:
+    value:
+        - img_scale:
+            - 640
+            - 640
+          pad_val: 114
+          pre_transform:
+            - backend_args: null
+              type: LoadImageFromFile
+            - type: LoadAnnotations
+              with_bbox: true
+          type: Mosaic
+        - border:
+            - -320
+            - -320
+          border_val:
+            - 114
+            - 114
+            - 114
+          max_aspect_ratio: 100
+          max_rotate_degree: 0
+          max_shear_degree: 0
+          scaling_ratio_range:
+            - 0.09999999999999998
+            - 1.9
+          type: YOLOv5RandomAffine
+norm_cfg:
+    value:
+        eps: 0.001
+        momentum: 0.03
+        type: BN
+num_classes:
+    value: 2
+num_det_layers:
+    value: 3
+optim_wrapper:
+    value:
+        clip_grad:
+            max_norm: 10
+        constructor: YOLOv5OptimizerConstructor
+        optimizer:
+            batch_size_per_gpu: 32
+            lr: 0.01
+            momentum: 0.937
+            nesterov: true
+            type: SGD
+            weight_decay: 0.0005
+        type: OptimWrapper
+param_scheduler:
+    value: null
+persistent_workers:
+    value: true
+pre_transform:
+    value:
+        - backend_args: null
+          type: LoadImageFromFile
+        - type: LoadAnnotations
+          with_bbox: true
+          with_gaze: true
+resume:
+    value: false
+save_epoch_intervals:
+    value: 10
+strides:
+    value:
+        - 8
+        - 16
+        - 32
+tal_alpha:
+    value: 0.5
+tal_beta:
+    value: 6
+tal_topk:
+    value: 10
+test_cfg:
+    value:
+        type: TestLoop
+test_dataloader:
+    value:
+        batch_size: 32
+        dataset:
+            ann_file: gaze_test_all_bbox.json
+            batch_shapes_cfg: null
+            data_prefix:
+                img: /mnt/terror/gaze360_dataset/original/imgs/
+            data_root: /mnt/terror/gaze360_dataset/gaze_annotations/
+            metainfo:
+                classes:
+                    - face
+                    - eye
+                palette:
+                    - - 20
+                      - 220
+                      - 60
+                    - - 220
+                      - 20
+                      - 60
+            pipeline:
+                - backend_args: null
+                  type: LoadImageFromFile
+                - scale:
+                    - 320
+                    - 320
+                  type: YOLOv5KeepRatioResize
+                - _scope_: mmdet
+                  type: LoadAnnotations
+                  with_bbox: true
+                  with_gaze: true
+                - meta_keys:
+                    - img_id
+                    - img_path
+                    - ori_shape
+                    - seg_map_path
+                    - scale_factor
+                    - pad_param
+                  type: mmdet.PackDetInputs
+            test_mode: true
+            type: YOLOv5CocoDataset
+        drop_last: false
+        num_workers: 2
+        persistent_workers: true
+        pin_memory: true
+        sampler:
+            shuffle: false
+            type: DefaultSampler
+test_evaluator:
+    value:
+        - ann_file: /mnt/terror/gaze360_dataset/gaze_annotations/gaze_test_all_bbox.json
+          classwise: true
+          metric: bbox
+          proposal_nums:
+            - 100
+            - 1
+            - 10
+          type: mmdet.CocoMetric
+        - ann_file: /mnt/terror/gaze360_dataset/gaze_annotations/gaze_test_all_bbox.json
+          type: AngularError
+test_pipeline:
+    value:
+        - backend_args: null
+          type: LoadImageFromFile
+        - scale:
+            - 320
+            - 320
+          type: YOLOv5KeepRatioResize
+        - _scope_: mmdet
+          type: LoadAnnotations
+          with_bbox: true
+          with_gaze: true
+        - meta_keys:
+            - img_id
+            - img_path
+            - ori_shape
+            - seg_map_path
+            - scale_factor
+            - pad_param
+          type: mmdet.PackDetInputs
+train_ann_file:
+    value: annotations/instances_train2017.json
+train_batch_size_per_gpu:
+    value: 32
+train_cfg:
+    value:
+        dynamic_intervals:
+            - - 490
+              - 1
+        max_epochs: 100
+        type: EpochBasedTrainLoop
+        val_interval: 1
+train_data_prefix:
+    value: train2017/
+train_dataloader:
+    value:
+        batch_size: 32
+        collate_fn:
+            type: yolov5_collate
+        dataset:
+            ann_file: gaze_train_all_bbox.json
+            data_prefix:
+                img: /mnt/terror/gaze360_dataset/original/imgs/
+            data_root: /mnt/terror/gaze360_dataset/gaze_annotations/
+            filter_cfg:
+                filter_empty_gt: false
+                min_size: 32
+            metainfo:
+                classes:
+                    - face
+                    - eye
+                palette:
+                    - - 20
+                      - 220
+                      - 60
+                    - - 220
+                      - 20
+                      - 60
+            pipeline:
+                - backend_args: null
+                  type: LoadImageFromFile
+                - type: LoadAnnotations
+                  with_bbox: true
+                  with_gaze: true
+                - scale:
+                    - 320
+                    - 320
+                  type: YOLOv5KeepRatioResize
+                - bbox_params:
+                    format: pascal_voc
+                    label_fields:
+                        - gt_bboxes_labels
+                        - gt_ignore_flags
+                    type: BboxParams
+                  keymap:
+                    gt_bboxes: bboxes
+                    gt_gazes: gazes
+                    img: image
+                  transforms:
+                    - p: 0.01
+                      type: Blur
+                    - p: 0.01
+                      type: MedianBlur
+                    - p: 0.01
+                      type: ToGray
+                    - p: 0.01
+                      type: CLAHE
+                  type: mmdet.Albu
+                - type: YOLOv5HSVRandomAug
+                - prob: 0.5
+                  type: mmdet.RandomFlip
+                - meta_keys:
+                    - img_id
+                    - img_path
+                    - ori_shape
+                    - img_shape
+                    - flip
+                    - seg_map_path
+                    - flip_direction
+                  type: mmdet.PackDetInputs
+            type: YOLOv5CocoDataset
+        num_workers: 4
+        persistent_workers: true
+        pin_memory: true
+        sampler:
+            shuffle: true
+            type: DefaultSampler
+train_num_workers:
+    value: 4
+train_pipeline:
+    value:
+        - backend_args: null
+          type: LoadImageFromFile
+        - type: LoadAnnotations
+          with_bbox: true
+          with_gaze: true
+        - scale:
+            - 320
+            - 320
+          type: YOLOv5KeepRatioResize
+        - bbox_params:
+            format: pascal_voc
+            label_fields:
+                - gt_bboxes_labels
+                - gt_ignore_flags
+            type: BboxParams
+          keymap:
+            gt_bboxes: bboxes
+            gt_gazes: gazes
+            img: image
+          transforms:
+            - p: 0.01
+              type: Blur
+            - p: 0.01
+              type: MedianBlur
+            - p: 0.01
+              type: ToGray
+            - p: 0.01
+              type: CLAHE
+          type: mmdet.Albu
+        - type: YOLOv5HSVRandomAug
+        - prob: 0.5
+          type: mmdet.RandomFlip
+        - meta_keys:
+            - img_id
+            - img_path
+            - ori_shape
+            - img_shape
+            - flip
+            - seg_map_path
+            - flip_direction
+          type: mmdet.PackDetInputs
+train_pipeline_stage2:
+    value:
+        - backend_args: null
+          type: LoadImageFromFile
+        - type: LoadAnnotations
+          with_bbox: true
+        - scale:
+            - 640
+            - 640
+          type: YOLOv5KeepRatioResize
+        - allow_scale_up: true
+          pad_val:
+            img: 114
+          scale:
+            - 640
+            - 640
+          type: LetterResize
+        - border_val:
+            - 114
+            - 114
+            - 114
+          max_aspect_ratio: 100
+          max_rotate_degree: 0
+          max_shear_degree: 0
+          scaling_ratio_range:
+            - 0.09999999999999998
+            - 1.9
+          type: YOLOv5RandomAffine
+        - bbox_params:
+            format: pascal_voc
+            label_fields:
+                - gt_bboxes_labels
+                - gt_ignore_flags
+            type: BboxParams
+          keymap:
+            gt_bboxes: bboxes
+            img: image
+          transforms:
+            - p: 0.01
+              type: Blur
+            - p: 0.01
+              type: MedianBlur
+            - p: 0.01
+              type: ToGray
+            - p: 0.01
+              type: CLAHE
+          type: mmdet.Albu
+        - type: YOLOv5HSVRandomAug
+        - prob: 0.5
+          type: mmdet.RandomFlip
+        - meta_keys:
+            - img_id
+            - img_path
+            - ori_shape
+            - img_shape
+            - flip
+            - flip_direction
+          type: mmdet.PackDetInputs
+tta_model:
+    value:
+        tta_cfg:
+            max_per_img: 300
+            nms:
+                iou_threshold: 0.65
+                type: nms
+        type: mmdet.DetTTAModel
+tta_pipeline:
+    value:
+        - backend_args: null
+          type: LoadImageFromFile
+        - transforms:
+            - - transforms:
+                    - scale:
+                        - 640
+                        - 640
+                      type: YOLOv5KeepRatioResize
+                    - allow_scale_up: false
+                      pad_val:
+                        img: 114
+                      scale:
+                        - 640
+                        - 640
+                      type: LetterResize
+                type: Compose
+              - transforms:
+                    - scale:
+                        - 320
+                        - 320
+                      type: YOLOv5KeepRatioResize
+                    - allow_scale_up: false
+                      pad_val:
+                        img: 114
+                      scale:
+                        - 320
+                        - 320
+                      type: LetterResize
+                type: Compose
+              - transforms:
+                    - scale:
+                        - 960
+                        - 960
+                      type: YOLOv5KeepRatioResize
+                    - allow_scale_up: false
+                      pad_val:
+                        img: 114
+                      scale:
+                        - 960
+                        - 960
+                      type: LetterResize
+                type: Compose
+            - - prob: 1
+                type: mmdet.RandomFlip
+              - prob: 0
+                type: mmdet.RandomFlip
+            - - type: mmdet.LoadAnnotations
+                with_bbox: true
+            - - meta_keys:
+                    - img_id
+                    - img_path
+                    - ori_shape
+                    - img_shape
+                    - scale_factor
+                    - pad_param
+                    - flip
+                    - flip_direction
+                type: mmdet.PackDetInputs
+          type: TestTimeAug
+val_ann_file:
+    value: annotations/instances_val2017.json
+val_batch_size_per_gpu:
+    value: 32
+val_cfg:
+    value:
+        type: ValLoop
+val_data_prefix:
+    value: val2017/
+val_dataloader:
+    value:
+        batch_size: 32
+        dataset:
+            ann_file: gaze_val_all_bbox.json
+            batch_shapes_cfg: null
+            data_prefix:
+                img: /mnt/terror/gaze360_dataset/original/imgs/
+            data_root: /mnt/terror/gaze360_dataset/gaze_annotations/
+            metainfo:
+                classes:
+                    - face
+                    - eye
+                palette:
+                    - - 20
+                      - 220
+                      - 60
+                    - - 220
+                      - 20
+                      - 60
+            pipeline:
+                - backend_args: null
+                  type: LoadImageFromFile
+                - scale:
+                    - 320
+                    - 320
+                  type: YOLOv5KeepRatioResize
+                - _scope_: mmdet
+                  type: LoadAnnotations
+                  with_bbox: true
+                  with_gaze: true
+                - meta_keys:
+                    - img_id
+                    - img_path
+                    - ori_shape
+                    - seg_map_path
+                    - scale_factor
+                    - pad_param
+                  type: mmdet.PackDetInputs
+            test_mode: true
+            type: YOLOv5CocoDataset
+        drop_last: false
+        num_workers: 2
+        persistent_workers: true
+        pin_memory: true
+        sampler:
+            shuffle: false
+            type: DefaultSampler
+val_evaluator:
+    value:
+        - ann_file: /mnt/terror/gaze360_dataset/gaze_annotations/gaze_val_all_bbox.json
+          type: AngularError
+        - ann_file: /mnt/terror/gaze360_dataset/gaze_annotations/gaze_val_all_bbox.json
+          classwise: true
+          metric: bbox
+          proposal_nums:
+            - 100
+            - 1
+            - 10
+          type: mmdet.CocoMetric
+val_interval_stage2:
+    value: 1
+val_num_workers:
+    value: 2
+vis_backends:
+    value:
+        - type: LocalVisBackend
+visualizer:
+    value:
+        name: visualizer
+        type: DetLocalVisualizerGaze
+        vis_backends:
+            - type: LocalVisBackend
+            - type: WandbVisBackend
+weight_decay:
+    value: 0.0005
+widen_factor:
+    value: 0.5
+work_dir:
+    value: ./work_dirs/yolov8_s_fast_1xb12-40e_gaze_v0

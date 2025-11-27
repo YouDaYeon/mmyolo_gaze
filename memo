@@ -1,0 +1,47 @@
+conda create -n mmyolo python==3.10 -y
+conda remove --name mmyolo4 --all
+
+
+pip install mmengine
+
+
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+
+git clone -b v2.1.0 --single-branch https://github.com/open-mmlab/mmcv.git
+cd mmcv
+
+pip install -r requirements/optional.txt
+pip install -e . -v ##
+python .dev_scripts/check_installation.py
+
+###
+
+
+cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ~/anaconda3/envs/mmyolo/lib/
+
+git clone -b v3.3.0 --single-branch https://github.com/open-mmlab/mmdetection.git
+
+
+File "/home/jhcho/anaconda3/envs/mmyolo/lib/python3.10/site-packages/mmengine/runner/checkpoint.py", line 347, in load_from_local
+checkpoint = torch.load(filename, map_location=map_location) -> checkpoint = torch.load(filename, map_location=map_location,weights_only=False) 
+
+
+
+  475  git clone -b v3.3.0 --single-branch https://github.com/open-mmlab/mmdetection.git
+  476  cd mmdetection
+  477  pip install -v -e .
+  478  mim download mmdet --config rtmdet_tiny_8xb32-300e_coco --dest .
+  479  python demo/image_demo.py demo/demo.jpg rtmdet_tiny_8xb32-300e_coco.py --weights rtmdet_tiny_8xb32-300e_coco_20220902_112414-78e30dcc.pth --device cpu
+  480  cd ..
+  481  git clone https://github.com/open-mmlab/mmyolo.git
+  482  cd mmyolo
+  483  pip install -r requirements/albu.txt
+  484  pip install albumentations==1.4.4
+  485  pip install -v -e .
+  486  python demo/image_demo.py demo/demo.jpg         yolov5_s-v61_syncbn_fast_8xb16-300e_coco.py         yolov5_s-v61_syncbn_fast_8xb16-300e_coco_20220918_084700-86e02187.pth
+  487  python demo/image_demo.py demo/demo.jpg         yolov5_s-v61_syncbn_fast_8xb16-300e_coco.py         yolov5_s-v61_syncbn_fast_8xb16-300e_coco_20220918_084700-86e02187.pth
+  488  python demo/image_demo.py demo/demo.jpg
+  489  mim download mmyolo --config yolov5_s-v61_syncbn_fast_8xb16-300e_coco --dest .
+  490  python demo/image_demo.py demo/demo.jpg yolov5_s-v61_syncbn_fast_8xb16-300e_coco.py yolov5_s-v61_syncbn_fast_8xb16-300e_coco_20220918_084700-86e02187.pth
+  491  python demo/image_demo.py demo/demo.jpg                           yolov5_s-v61_syncbn_fast_8xb16-300e_coco.py                           yolov5_s-v61_syncbn_fast_8xb16-300e_coco_20220918_084700-86e02187.pth
+  492  history
