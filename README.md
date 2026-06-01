@@ -21,7 +21,7 @@
 사전에 학습된 가중치(`.pth`) 파일을 `result/` 폴더에 저장한다.
 ### 2. 테스트 실행
 ```
-python tools/test.py configs/yolov8/yolov8_s_fast_1xb12-40e_gaze_v0.py result/20250902_PositionMap_Eye/best_MAE_360_epoch_11.pth --shor-dir test
+python tools/test.py configs/yolov8/yolov8_s_fast_1xb12-40e_gaze_v0.py result/20250902_PositionMap_Eye/best_MAE_360_epoch_11.pth --show-dir test
 ```
 테스트 결과 시각화 이미지가 'test/' 폴더에 저장된다.
 ### 3. 학습 실행
