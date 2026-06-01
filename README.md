@@ -31,6 +31,14 @@ nohup python tools/train.py configs/yolov8/yolov8_s_fast_1xb12-40e_gaze_v0.py &>
 nohup : 터미널 종료 후에도 학습 계속 진행 \
 학습 로그는 'train_test.log' 파일에 저장된다.
 
+## Docker
+
+- 도커 빌드
+    `docker build -t gaze_inference_final -f Dockerfile .`
+    
+- 컨테이너 실행
+    `docker run -it --rm --gpus all -v /mnt/team_ai2:/mnt/team_ai2 gaze_inference_final bash`
+
 ## 📊 Results
 | Dataset   | *Metric (Angular Error ↓)                | Description                    |
 | --------- | ------------------------                | ------------------------------ |
