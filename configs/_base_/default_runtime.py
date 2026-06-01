@@ -1,5 +1,8 @@
 default_scope = 'mmyolo'
 
+# Import gaze visualizer so DetLocalVisualizerGaze is registered before Runner builds the visualizer.
+custom_imports = dict(imports=['mmyolo.models.gaze_v0.gaze_visual'])
+
 default_hooks = dict(
     timer=dict(type='IterTimerHook'),
     logger=dict(type='LoggerHook', interval=50),

@@ -1,5 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import math
+import types
 from copy import deepcopy
 from typing import List, Sequence, Tuple, Union, Optional
 
@@ -12,6 +13,7 @@ import torch.nn.functional as F
 from mmcv.image.geometric import _scale_size
 from mmcv.transforms import BaseTransform, Compose
 from mmcv.transforms.utils import cache_randomness
+from mmdet.datasets.transforms import Albu as MMDET_Albu
 from mmdet.datasets.transforms import FilterAnnotations as FilterDetAnnotations
 from mmdet.datasets.transforms import LoadAnnotations as MMDET_LoadAnnotations
 from mmdet.datasets.transforms import RandomAffine as MMDET_RandomAffine
@@ -565,6 +567,97 @@ class YOLOv5HSVRandomAug(BaseTransform):
         repr_str += f'saturation_delta={self.saturation_delta}, '
         repr_str += f'value_delta={self.value_delta})'
         return repr_str
+
+
+def _patch_albu_bbox_processor(compose,
+                               check_bbox_validity: bool = True,
+                               preserve_degenerate_bboxes: bool = False) -> None:
+    """Patch albumentations BboxProcessor on a Compose instance.
+
+    Albumentations 1.3.x always calls ``convert_*`` with ``check_validity=True``
+    and drops zero-area boxes in ``filter``. Use this to allow placeholders
+    such as ``[0, 0, 0, 0]``.
+    """
+    from albumentations.core.bbox_utils import (
+        convert_bboxes_from_albumentations,
+        convert_bboxes_to_albumentations,
+    )
+
+    proc = compose.processors.get('bboxes')
+    if proc is None:
+        return
+
+    if not check_bbox_validity:
+
+        def convert_to(processor, data, rows, cols):
+            return convert_bboxes_to_albumentations(
+                data,
+                processor.params.format,
+                rows,
+                cols,
+                check_validity=False,
+            )
+
+        def convert_from(processor, data, rows, cols):
+            return convert_bboxes_from_albumentations(
+                data,
+                processor.params.format,
+                rows,
+                cols,
+                check_validity=False,
+            )
+
+        def check_noop(processor, data, rows, cols):
+            return None
+
+        proc.convert_to_albumentations = types.MethodType(convert_to, proc)
+        proc.convert_from_albumentations = types.MethodType(convert_from, proc)
+        proc.check = types.MethodType(check_noop, proc)
+
+    if preserve_degenerate_bboxes:
+
+        def filter_keep_all(processor, data, rows, cols):
+            return list(data)
+
+        proc.filter = types.MethodType(filter_keep_all, proc)
+
+
+@TRANSFORMS.register_module()
+class Albu(MMDET_Albu):
+    """Albumentations compose with optional relaxed bbox checks.
+
+    Args:
+        check_bbox_validity (bool): If False, skip albumentations
+            ``x_max <= x_min`` / ``y_max <= y_min`` checks when converting
+            bboxes. Default: False for gaze pipelines using placeholder boxes.
+        preserve_degenerate_bboxes (bool): If True, do not drop zero-area
+            bboxes in albumentations post-filter. Default: True when validity
+            checks are disabled.
+        transforms, bbox_params, keymap, skip_img_without_anno: Same as
+            :class:`mmdet.datasets.transforms.Albu`.
+    """
+
+    def __init__(self,
+                 transforms: List[dict],
+                 bbox_params: Optional[dict] = None,
+                 keymap: Optional[dict] = None,
+                 skip_img_without_anno: bool = False,
+                 check_bbox_validity: bool = False,
+                 preserve_degenerate_bboxes: bool = True,
+                 **kwargs) -> None:
+        super().__init__(
+            transforms=transforms,
+            bbox_params=bbox_params,
+            keymap=keymap,
+            skip_img_without_anno=skip_img_without_anno,
+            **kwargs)
+        if bbox_params is not None and (
+                not check_bbox_validity or preserve_degenerate_bboxes):
+            _patch_albu_bbox_processor(
+                self.aug,
+                check_bbox_validity=check_bbox_validity,
+                preserve_degenerate_bboxes=preserve_degenerate_bboxes,
+            )
 
 
 @TRANSFORMS.register_module()

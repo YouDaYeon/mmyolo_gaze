@@ -4,12 +4,23 @@ import argparse
 import logging
 import os
 import os.path as osp
-sys.path.insert(0, "/workspace/mmyolo/mmdetection")
+
+# See tools/test.py: sys.path must include repo root so `mmyolo` resolves to `<repo>/mmyolo`.
+_TOOLS_DIR = osp.dirname(osp.abspath(__file__))
+_REPO_ROOT = osp.abspath(osp.join(_TOOLS_DIR, '..'))
+for _p in (
+        _REPO_ROOT,
+        osp.join(_REPO_ROOT, 'mmyolo', 'mmdetection'),
+        osp.join(_REPO_ROOT, 'mmdetection'),
+):
+    if osp.isdir(_p):
+        sys.path.insert(0, _p)
+
 from mmdet.utils import setup_cache_size_limit_of_dynamo
 from mmengine.config import Config, DictAction
 from mmengine.logging import print_log
 from mmengine.runner import Runner
-sys.path.append("/workspace/mmyolo/mmyolo")
+
 from mmyolo.registry import RUNNERS
 from mmyolo.utils import is_metainfo_lower
 

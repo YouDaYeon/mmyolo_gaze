@@ -1,4 +1,4 @@
-name: mmyolo
+name: mmyolo_1031
 channels:
   - conda-forge
   - defaults

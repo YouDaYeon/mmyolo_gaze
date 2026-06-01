@@ -20,13 +20,15 @@ WORKDIR /workspace
 
 COPY mmcv /workspace/mmcv
 COPY mmdetection /workspace/mmdetection
-COPY ../mmyolo /workspace/mmyolo
+# COPY ../mmyolo /workspace/mmyolo
+COPY . /workspace/mmyolo
 
 ENV CUDA_HOME=/usr/local/cuda
 ENV PATH=${CUDA_HOME}/bin:${PATH}
 ENV LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}
 ENV MMCV_WITH_OPS=1
 ENV FORCE_CUDA=1
+ENV TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 
 ENV TORCH_CUDA_ARCH_LIST="9.0"
 
@@ -35,7 +37,11 @@ RUN if [ ! -f /usr/local/cuda/lib64/libcudart.so ]; then \
     fi && \
     echo "/usr/local/cuda/lib64" > /etc/ld.so.conf.d/cuda.conf && ldconfig
 
+RUN find /workspace/mmcv -name '_ext*.so' -delete && \
+    find /workspace/mmcv -name '*.cpython-*.so' -delete && \
+    rm -rf /workspace/mmcv/build
+
 RUN cd /workspace/mmcv && pip install -v -e .
 RUN cd /workspace/mmdetection && pip install -v -e .
 RUN cd /workspace/mmyolo && pip install -r requirements/albu.txt && mim install -v -e .
-RUN cd /workspace/mmyolo && mim download mmyolo --config yolov5_s-v61_syncbn_fast_8xb16-300e_coco --dest .
+# RUN cd /workspace/mmyolo && mim download mmyolo --config yolov5_s-v61_syncbn_fast_8xb16-300e_coco --dest .

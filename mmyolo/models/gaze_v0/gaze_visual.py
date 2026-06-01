@@ -354,46 +354,46 @@ def compute_yaw_angular(target):
     
     return output_yaw
 
-image = cv2.imread('/mnt/terror/gaze360_dataset/original/imgs/rec_078/body/000035/000673.jpg')
+# image = cv2.imread('/mnt/terror/gaze360_dataset/original/imgs/rec_078/body/000035/000673.jpg')
 
-# Example bbox and gaze coordinates
-head_bbox = np.array([46,158,355,356])  # [x1, y1, x2, y2]
-face_bbox = np.array([177,247,119,176])  # [x1, y1, x2, y2]
-eye_bbox1 = np.array([276,309,11,13])  # [x1, y1, x2, y2]
-eye_bbox2 = np.array([239,311,20,14])  # [x1, y1, x2, y2]
-gaze = np.array([-0.6038025407684535,-0.17154828552366802,-0.7784559573254289])  # [x, y, z]
-# yaw_pitch = vector_to_yaw_pitch(gaze)
-# print("yaw: ", yaw_pitch[0], "pitch: ", yaw_pitch[1])
-# yaw_pitch_angular = compute_yaw_angular(yaw_pitch)
-# print("yaw_angular: ", yaw_pitch_angular)
+# # Example bbox and gaze coordinates
+# head_bbox = np.array([46,158,355,356])  # [x1, y1, x2, y2]
+# face_bbox = np.array([177,247,119,176])  # [x1, y1, x2, y2]
+# eye_bbox1 = np.array([276,309,11,13])  # [x1, y1, x2, y2]
+# eye_bbox2 = np.array([239,311,20,14])  # [x1, y1, x2, y2]
+# gaze = np.array([-0.6038025407684535,-0.17154828552366802,-0.7784559573254289])  # [x, y, z]
+# # yaw_pitch = vector_to_yaw_pitch(gaze)
+# # print("yaw: ", yaw_pitch[0], "pitch: ", yaw_pitch[1])
+# # yaw_pitch_angular = compute_yaw_angular(yaw_pitch)
+# # print("yaw_angular: ", yaw_pitch_angular)
 
-# yaw_pitch = vector_to_yaw_pitch(gaze)
+# # yaw_pitch = vector_to_yaw_pitch(gaze)
 
-# output_yaw = compute_yaw_angular(yaw_pitch)
-# print("yaw: ", yaw_pitch[0], "pitch: ", yaw_pitch[1])
-# print("output_yaw: ", output_yaw)
+# # output_yaw = compute_yaw_angular(yaw_pitch)
+# # print("yaw: ", yaw_pitch[0], "pitch: ", yaw_pitch[1])
+# # print("output_yaw: ", output_yaw)
 
-# result_image = draw_gaze(
-#     a=face_bbox[0],
-#     b=face_bbox[1],
-#     c=face_bbox[2],
-#     d=face_bbox[3],
-#     image_in=image,
-#     pitchyaw=yaw_pitch,
-#     save_path='demo/bboxgaze_visual/test.jpg'
+# # result_image = draw_gaze(
+# #     a=face_bbox[0],
+# #     b=face_bbox[1],
+# #     c=face_bbox[2],
+# #     d=face_bbox[3],
+# #     image_in=image,
+# #     pitchyaw=yaw_pitch,
+# #     save_path='demo/bboxgaze_visual/test.jpg'
+# # )
+
+# # eye_2d = np.array([0.32571266, 0.25452647])
+# # eye_3d = np.array([0.713, -0.185,  1.663])
+
+# # Draw bbox and gaze
+# result_image = draw_bbox_and_gaze(
+#     image=image,
+#     head_bbox=head_bbox,
+#     face_bbox=face_bbox,
+#     eye_bbox1=eye_bbox1,
+#     eye_bbox2=eye_bbox2,
+#     gaze=gaze,
+#     save_path='DY_TEST/bboxgaze_visual.jpg'
 # )
-
-# eye_2d = np.array([0.32571266, 0.25452647])
-# eye_3d = np.array([0.713, -0.185,  1.663])
-
-# Draw bbox and gaze
-result_image = draw_bbox_and_gaze(
-    image=image,
-    head_bbox=head_bbox,
-    face_bbox=face_bbox,
-    eye_bbox1=eye_bbox1,
-    eye_bbox2=eye_bbox2,
-    gaze=gaze,
-    save_path='DY_TEST/bboxgaze_visual.jpg'
-)
 

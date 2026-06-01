@@ -4,14 +4,33 @@ import argparse
 import os
 import os.path as osp
 
-sys.path.insert(0, "/workspace/mmyolo/mmdetection")
+# Before mmengine/torch: optional CPU-only mode. PyTorch builds without support for your GPU
+# (e.g. H100 / sm_90 with old PyTorch) can make `model.to('cuda')` hang or take forever.
+if '--cpu' in sys.argv or os.environ.get('MMYOLO_FORCE_CPU', '').lower() in (
+        '1', 'true', 'yes'):
+    os.environ['CUDA_VISIBLE_DEVICES'] = ''
+
+# `import mmyolo` needs the parent of the `mmyolo` package dir on sys.path (i.e. repo root),
+# not `<repo>/mmyolo` itself (that makes Python look for `mmyolo/mmyolo` and fall through to
+# site-packages, where upstream MMYOLO has no `gaze_v0`).
+_TOOLS_DIR = osp.dirname(osp.abspath(__file__))
+_REPO_ROOT = osp.abspath(osp.join(_TOOLS_DIR, '..'))
+# Import local MMDetection before site-packages (custom e.g. LoadAnnotations.with_gaze).
+# Order of insert(0): last existing path ends up first on sys.path.
+for _p in (
+        _REPO_ROOT,
+        osp.join(_REPO_ROOT, 'mmyolo', 'mmdetection'),
+        osp.join(_REPO_ROOT, 'mmdetection'),
+):
+    if osp.isdir(_p):
+        sys.path.insert(0, _p)
+
 from mmdet.engine.hooks.utils import trigger_visualization_hook
 from mmdet.utils import setup_cache_size_limit_of_dynamo
 from mmengine.config import Config, ConfigDict, DictAction
 from mmengine.evaluator import DumpResults
 from mmengine.runner import Runner
 
-sys.path.append("/workspace/mmyolo/mmyolo")
 from mmyolo.registry import RUNNERS
 from mmyolo.utils import is_metainfo_lower
 
@@ -62,6 +81,11 @@ def parse_args():
         'It also allows nested list/tuple values, e.g. key="[(a,b),(c,d)]" '
         'Note that the quotation marks are necessary and that no white space '
         'is allowed.')
+    parser.add_argument(
+        '--cpu',
+        action='store_true',
+        help='run on CPU only (hide GPUs). Evaluated before CUDA init; same as '
+        'MMYOLO_FORCE_CPU=1 or CUDA_VISIBLE_DEVICES=')
     parser.add_argument(
         '--launcher',
         choices=['none', 'pytorch', 'slurm', 'mpi'],

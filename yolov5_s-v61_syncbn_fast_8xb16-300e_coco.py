@@ -703,7 +703,7 @@ vis_backends = [
 ]
 visualizer = dict(
     name='visualizer',
-    type='mmdet.DetLocalVisualizer',
+    type='DetLocalVisualizerGaze',
     vis_backends=[
         dict(type='LocalVisBackend'),
     ])

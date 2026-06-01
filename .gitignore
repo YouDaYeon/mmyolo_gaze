@@ -74,6 +74,7 @@ resources/
 tests/
 work_dirs/
 DY_TEST/
+result/
 
 mmcv/
 mmcv_git/

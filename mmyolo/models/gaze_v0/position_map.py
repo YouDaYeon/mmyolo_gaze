@@ -52,11 +52,11 @@ class PositionMap(nn.Module):
                 y1 = torch.floor(y1 * scale_h)
                 y2 = torch.ceil(y2 * scale_h)
 
-                if label == 0:  # face
-                    if x1 == 0 and x2 == 0 and y1 == 0 and y2 == 0:
-                        face_position_map[batch_idx] = 1  # Fill entire feature map with 1s
-                    # else:
-                    #     face_position_map[batch_idx, :, int(y1):int(y2), int(x1):int(x2)] = 1
+                # if label == 0:  # face
+                #     if x1 == 0 and x2 == 0 and y1 == 0 and y2 == 0:
+                #         face_position_map[batch_idx] = 1  # Fill entire feature map with 1s
+                #     # else:
+                #     #     face_position_map[batch_idx, :, int(y1):int(y2), int(x1):int(x2)] = 1
                 
                 if label == 1:  # eye
                     if x1 != 0 and x2 != 0 and y1 != 0 and y2 != 0:

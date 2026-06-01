@@ -1,7 +1,8 @@
 _base_ = 'yolov8_m_syncbn_fast_8xb16-500e_coco.py'
 # _base_ = "yolov8_l_syncbn_fast_8xb16-500e_coco.py"
 
-data_root = '/mnt/terror/gaze360_dataset/gaze_annotations/'
+data_root = '/mnt/team_ai2/nas_12/terror/gaze360_dataset/gaze_annotations/'
+# data_root = '/mnt/terror/gaze360_dataset/gaze_annotations/'
 # data_root = '/mnt/terror/gaze360_dataset/gaze_360_180/'
 # data_root = '/mnt/terror/gaze360_dataset/gaze_360_refine_body/'
 
@@ -27,6 +28,9 @@ max_epochs = 100  # Maximum training epochs
 train_batch_size_per_gpu = 32
 val_batch_size_per_gpu = 32
 train_num_workers = 4
+# Base yolov8 config uses val_num_workers=2; that becomes a major bottleneck when
+# images live on network storage (e.g. /mnt/terror/...). Raise for val/test throughput.
+val_num_workers = 8
 img_scale = (320, 320)
 # img_scale = (640, 640)
 # img_scale = (960, 960)
@@ -63,7 +67,8 @@ load_from = 'configs/yolov8/mm_yolov8m_coco_state_dict.pth'
 # load_from = '/mnt/terror/gaze360_dataset/best_coco_face_precision_epoch_22.pth'
 # load_from = '/mnt/terror/gaze360_dataset/mm_yolov8l_coco.pth'
 
-image_path = '/mnt/terror/gaze360_dataset/original/imgs/'
+image_path = '/mnt/team_ai2/nas_12/terror/gaze360_dataset/original/imgs/'
+# image_path = '/mnt/terror/gaze360_dataset/original/imgs/'
 # image_path = '/mnt/terror/gaze360_dataset/gaze_360_180/Image/'
 # image_path = '/mnt/terror/gaze360_dataset/'
 
@@ -118,7 +123,9 @@ albu_train_transforms = [
 last_transform = [
     # dict(type='Float32ToUint8'),  # float32를 uint8로 변환
     dict(
-        type='mmdet.Albu',
+        type='Albu',
+        check_bbox_validity=False,
+        preserve_degenerate_bboxes=True,
         transforms=albu_train_transforms,
         bbox_params=dict(
             type='BboxParams',
@@ -263,6 +270,8 @@ train_dataloader = dict(
 
 val_dataloader = dict(
     batch_size=val_batch_size_per_gpu,
+    num_workers=val_num_workers,
+    prefetch_factor=4,
     dataset=dict(
         metainfo=metainfo,
         data_root=data_root,
@@ -277,6 +286,8 @@ val_dataloader = dict(
 
 test_dataloader = dict(
     batch_size=val_batch_size_per_gpu,
+    num_workers=val_num_workers,
+    prefetch_factor=4,
     dataset=dict(
         metainfo=metainfo,
         data_root=data_root,
@@ -389,4 +400,4 @@ default_hooks = dict(
 # ]
 
 train_cfg = dict(max_epochs=max_epochs, val_interval=1)
-visualizer = dict(vis_backends = [dict(type='LocalVisBackend'), dict(type='WandbVisBackend')]) # noqa
+# visualizer = dict(vis_backends = [dict(type='LocalVisBackend'), dict(type='WandbVisBackend')]) # noqa
